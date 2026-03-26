@@ -39,30 +39,7 @@
   --footer-color: #666;
 }
 
-/* Dark mode — floating panels (select, combobox, dropdown) */
-[data-theme="dark"] z-select [slot="options"],
-[data-theme="dark"] z-combobox [slot="listbox"],
-[data-theme="dark"] z-dropdown [slot="content"] {
-  background: #2a2a3e;
-  color: #e0e0e0;
-  border: 1px solid #3a3a4e;
-}
-
-[data-theme="dark"] z-select [slot="options"] [data-value]:hover,
-[data-theme="dark"] z-combobox [slot="listbox"] [data-value]:hover,
-[data-theme="dark"] z-combobox [slot="listbox"] [data-value][data-highlighted] {
-  background: #3a3a4e;
-}
-
-/* Dark mode — select trigger & combobox input */
-[data-theme="dark"] z-select [slot="trigger"],
-[data-theme="dark"] z-combobox input {
-  background: #2a2a3e;
-  color: #e0e0e0;
-  border-color: #3a3a4e;
-}
-
-/* Dark mode — tabs */
+/* Dark mode — tabs (not covered by framework) */
 [data-theme="dark"] z-tabs [role="tab"] {
   color: #aaa;
 }
