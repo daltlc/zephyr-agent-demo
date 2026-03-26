@@ -1,0 +1,430 @@
+/* ==========================================================================
+   Zephyr Boards — Board-specific styles
+   Uses --z-* custom properties from Zephyr Framework for consistency.
+   ========================================================================== */
+
+/* --- Reset & Base --- */
+
+* { box-sizing: border-box; margin: 0; }
+
+:root {
+  --board-bg: #f4f5f7;
+  --card-bg: #fff;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --column-bg: #ebecf0;
+  --text-primary: #172b4d;
+  --text-secondary: #5e6c84;
+  --dot-todo: #5e6c84;
+  --dot-progress: #0052cc;
+  --dot-done: #36b37e;
+  --priority-high: #ef5350;
+  --priority-medium: #ff9800;
+  --priority-low: #66bb6a;
+  --chip-bg: #e8eaf6;
+  --chip-hover: #c5cae9;
+  --footer-color: #999;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --board-bg: #1a1a2e;
+  --card-bg: #2a2a3e;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --column-bg: #22223a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #aaa;
+  --dot-todo: #aaa;
+  --chip-bg: #2a2a3e;
+  --chip-hover: #3a3a4e;
+  --footer-color: #666;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--board-bg);
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+
+/* --- Header --- */
+
+.board-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.board-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+.settings-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--column-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.settings-btn:hover {
+  background: var(--column-bg);
+}
+
+/* Dropdown menu items */
+#settings-dropdown [role="menuitem"] {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+#settings-dropdown [role="menuitem"]:hover {
+  background: var(--column-bg);
+}
+
+/* --- Filter Row --- */
+
+.filter-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.filter-row z-select,
+.filter-row z-combobox {
+  min-width: 180px;
+}
+
+/* --- Board Columns --- */
+
+.board-columns {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.column {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.column-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  padding: 0.5rem 0.25rem;
+}
+
+.column-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-todo { background: var(--dot-todo); }
+.dot-progress { background: var(--dot-progress); }
+.dot-done { background: var(--dot-done); }
+
+.column-count {
+  margin-left: auto;
+  background: var(--column-bg);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 10px;
+}
+
+.column-list {
+  background: var(--column-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.5rem;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* --- Task Cards --- */
+
+.task-card {
+  background: var(--card-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.75rem;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.task-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.task-card[data-priority="high"] {
+  border-left-color: var(--priority-high);
+}
+
+.task-card[data-priority="medium"] {
+  border-left-color: var(--priority-medium);
+}
+
+.task-card[data-priority="low"] {
+  border-left-color: var(--priority-low);
+}
+
+.task-card-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.task-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.priority-badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.priority-badge[data-priority="high"] {
+  background: var(--priority-high);
+  color: #fff;
+}
+
+.priority-badge[data-priority="medium"] {
+  background: var(--priority-medium);
+  color: #fff;
+}
+
+.priority-badge[data-priority="low"] {
+  background: var(--priority-low);
+  color: #fff;
+}
+
+/* Drag states — Zephyr sets these via z-sortable */
+.task-card[data-dragging] {
+  opacity: 0.5;
+}
+
+.column-list[data-drag-over] {
+  outline: 2px dashed var(--dot-progress);
+  outline-offset: -2px;
+}
+
+/* --- Empty State --- */
+
+.empty-state {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-style: italic;
+}
+
+/* Hide empty state when column has task cards */
+.column-list .task-card ~ .empty-state {
+  display: none;
+}
+
+/* --- Timeline View --- */
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--card-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.75rem 1rem;
+  box-shadow: var(--card-shadow);
+  border-left: 3px solid transparent;
+}
+
+.timeline-item[data-priority="high"] { border-left-color: var(--priority-high); }
+.timeline-item[data-priority="medium"] { border-left-color: var(--priority-medium); }
+.timeline-item[data-priority="low"] { border-left-color: var(--priority-low); }
+
+.timeline-item-title {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.timeline-item-column {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  padding: 0.15rem 0.5rem;
+  background: var(--column-bg);
+  border-radius: 3px;
+}
+
+.timeline-item-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* --- Suggested Prompt Chips --- */
+
+.prompt-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--column-bg);
+}
+
+.chips-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.chip {
+  background: var(--chip-bg);
+  border: none;
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  background: var(--chip-hover);
+}
+
+/* --- Modal --- */
+
+.modal-body {
+  padding: 1.5rem;
+  max-width: 500px;
+}
+
+.modal-body h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.modal-detail-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.modal-detail-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 80px;
+}
+
+.modal-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1.25rem;
+  background: var(--text-primary);
+  color: var(--card-bg);
+  border: none;
+  border-radius: var(--z-border-radius, 0.5rem);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.modal-close:hover {
+  opacity: 0.9;
+}
+
+/* --- Footer --- */
+
+.board-footer {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  font-size: 0.8rem;
+  color: var(--footer-color);
+}
+
+.board-footer a {
+  color: var(--dot-progress);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.board-footer a:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 768px) {
+  body { padding: 1rem; }
+
+  .board-header { flex-direction: column; gap: 0.5rem; }
+
+  .board-columns {
+    flex-direction: column;
+  }
+
+  .column {
+    min-width: unset;
+    max-width: unset;
+  }
+
+  .filter-row {
+    flex-direction: column;
+  }
+
+  .prompt-chips {
+    justify-content: center;
+  }
+}

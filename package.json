@@ -1,0 +1,12 @@
+{
+  "name": "zephyr-agent-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Watch an AI agent build and manage a task board in real time — powered by Zephyr Framework",
+  "scripts": {
+    "dev": "npx vercel dev",
+    "start": "npx serve ."
+  },
+  "keywords": ["zephyr", "ai-agent", "web-components", "mcp", "task-board"],
+  "license": "MIT"
+}

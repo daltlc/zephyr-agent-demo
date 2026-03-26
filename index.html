@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zephyr Boards — AI-Powered Task Board</title>
+
+  <!-- Zephyr Framework — CSS-driven components, zero runtime JS -->
+  <link rel="stylesheet" href="https://unpkg.com/zephyr-framework/zephyr-framework.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="board-header">
+    <div class="header-left">
+      <h1>Zephyr Boards</h1>
+      <p class="subtitle">An AI agent builds and manages your task board in real time.</p>
+    </div>
+    <div class="header-right">
+      <z-dropdown id="settings-dropdown">
+        <button slot="trigger" class="settings-btn" aria-label="Settings">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="10" cy="10" r="2"/>
+            <path d="M10 1v3M10 16v3M1 10h3M16 10h3M3.5 3.5l2 2M14.5 14.5l2 2M3.5 16.5l2-2M14.5 5.5l2-2"/>
+          </svg>
+        </button>
+        <div slot="content" role="menu">
+          <button role="menuitem" data-action="toggle-theme">Toggle dark mode</button>
+          <button role="menuitem" data-action="clear-board">Clear board</button>
+        </div>
+      </z-dropdown>
+    </div>
+  </header>
+
+  <!-- ===== Board wrapper (z-board custom element) ===== -->
+  <z-board id="board">
+
+    <!-- ===== Tabs: Board / Timeline ===== -->
+    <z-tabs id="view-tabs">
+      <button data-tab="board" data-active aria-selected="true" role="tab">Board</button>
+      <button data-tab="timeline" role="tab">Timeline</button>
+
+      <!-- Board View -->
+      <div data-tab-panel="board" data-active role="tabpanel">
+
+        <!-- Filters -->
+        <div class="filter-row">
+          <z-select id="priority-filter" name="priority">
+            <button slot="trigger">All Priorities</button>
+            <div slot="options" role="listbox">
+              <div role="option" data-value="all">All Priorities</div>
+              <div role="option" data-value="high">High</div>
+              <div role="option" data-value="medium">Medium</div>
+              <div role="option" data-value="low">Low</div>
+            </div>
+          </z-select>
+
+          <z-combobox id="assignee-filter" name="assignee">
+            <input type="text" placeholder="Filter by assignee..." aria-label="Filter by assignee" autocomplete="off">
+            <div slot="listbox" role="listbox">
+              <div role="option" data-value="all">All Assignees</div>
+            </div>
+          </z-combobox>
+        </div>
+
+        <!-- Columns -->
+        <div class="board-columns">
+          <div class="column">
+            <h2 class="column-title">
+              <span class="column-dot dot-todo"></span>
+              To Do
+              <span class="column-count" data-column="todo">0</span>
+            </h2>
+            <z-sortable id="col-todo" class="column-list" data-sortable="task">
+              <div class="empty-state">No tasks yet — ask the agent to create some</div>
+            </z-sortable>
+          </div>
+
+          <div class="column">
+            <h2 class="column-title">
+              <span class="column-dot dot-progress"></span>
+              In Progress
+              <span class="column-count" data-column="progress">0</span>
+            </h2>
+            <z-sortable id="col-progress" class="column-list" data-sortable="task">
+              <div class="empty-state">Drag tasks here or ask the agent</div>
+            </z-sortable>
+          </div>
+
+          <div class="column">
+            <h2 class="column-title">
+              <span class="column-dot dot-done"></span>
+              Done
+              <span class="column-count" data-column="done">0</span>
+            </h2>
+            <z-sortable id="col-done" class="column-list" data-sortable="task">
+              <div class="empty-state">Completed tasks appear here</div>
+            </z-sortable>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline View -->
+      <div data-tab-panel="timeline" role="tabpanel">
+        <div id="timeline-list" class="timeline-list">
+          <div class="empty-state">No tasks yet — switch to Board view and ask the agent to create some</div>
+        </div>
+      </div>
+    </z-tabs>
+
+    <!-- Suggested Prompts -->
+    <div class="prompt-chips">
+      <span class="chips-label">Try asking:</span>
+      <button class="chip" data-prompt="Create 5 tasks for a product launch">Create 5 tasks for a product launch</button>
+      <button class="chip" data-prompt="Move all high priority tasks to In Progress">Move high priority to In Progress</button>
+      <button class="chip" data-prompt="Switch to dark mode">Switch to dark mode</button>
+      <button class="chip" data-prompt="Clear the board and create a sprint plan for a mobile app">Clear and start a new sprint</button>
+    </div>
+
+  </z-board>
+
+  <!-- ===== Task Detail Modal ===== -->
+  <z-modal id="task-detail">
+    <div class="modal-body">
+      <h2 id="modal-title">Task Details</h2>
+      <div id="modal-content"></div>
+      <button id="modal-close-btn" class="modal-close">Close</button>
+    </div>
+  </z-modal>
+
+  <!-- ===== Toast Notifications ===== -->
+  <z-toast id="toast"></z-toast>
+
+  <!-- ===== Agent Chat Widget ===== -->
+  <z-agent
+    id="agent"
+    data-endpoint="/api/chat"
+    data-provider="anthropic"
+    data-greeting="Hi! I can build and manage your task board. Try: 'Create 5 tasks for a product launch'"
+    data-placeholder="Ask me to create, move, or organize tasks..."
+  ></z-agent>
+
+  <!-- ===== Footer ===== -->
+  <footer class="board-footer">
+    Built with <a href="https://github.com/daltoncarr/zephyr-framework" target="_blank" rel="noopener">Zephyr Framework</a>
+    — the first UI framework built for AI agents.
+  </footer>
+
+  <!-- Scripts — framework first, then board logic -->
+  <script src="https://unpkg.com/zephyr-framework/zephyr-framework.js"></script>
+  <script src="https://unpkg.com/zephyr-framework/zephyr-agent-widget.js"></script>
+  <script src="board.js"></script>
+</body>
+</html>
