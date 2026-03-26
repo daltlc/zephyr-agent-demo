@@ -31,11 +31,23 @@ class ZBoard extends HTMLElement {
     // Register into Zephyr agent system
     this._registerAgent();
 
-    // Wire up prompt chips
+    // Wire up prompt chips — open panel, disable during pending, re-enable after
+    this._pendingSend = false;
     this.querySelectorAll('.chip[data-prompt]').forEach(chip => {
       chip.addEventListener('click', () => {
+        if (this._pendingSend) return;
         const agent = document.getElementById('agent');
-        if (agent && agent.send) agent.send(chip.dataset.prompt);
+        if (!agent || !agent.send) return;
+
+        // Open the chat panel so the user sees the conversation
+        if (agent.open) agent.open();
+
+        // Disable all chips while the request is in flight
+        this._setChipsDisabled(true);
+
+        agent.send(chip.dataset.prompt)
+          .then(() => this._setChipsDisabled(false))
+          .catch(() => this._setChipsDisabled(false));
       });
     });
 
@@ -303,6 +315,14 @@ class ZBoard extends HTMLElement {
   _columnLabel(col) {
     const labels = { todo: 'To Do', progress: 'In Progress', done: 'Done' };
     return labels[col] || col;
+  }
+
+  _setChipsDisabled(disabled) {
+    this._pendingSend = disabled;
+    this.querySelectorAll('.chip[data-prompt]').forEach(chip => {
+      chip.disabled = disabled;
+      chip.setAttribute('aria-busy', disabled);
+    });
   }
 
   _updateCounts() {

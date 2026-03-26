@@ -363,8 +363,13 @@ z-tabs [data-tab-panel] {
   white-space: nowrap;
 }
 
-.chip:hover {
+.chip:hover:not(:disabled) {
   background: var(--chip-hover);
+}
+
+.chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* --- Modal --- */
