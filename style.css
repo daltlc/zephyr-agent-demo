@@ -39,13 +39,20 @@
   --footer-color: #666;
 }
 
-/* Dark mode — tabs (not covered by framework) */
-[data-theme="dark"] z-tabs [role="tab"] {
-  color: #aaa;
+/* Dark mode — board-specific overrides */
+[data-theme="dark"] z-select [slot="options"],
+[data-theme="dark"] z-combobox [slot="listbox"] {
+  border-color: #3a3a4e;
 }
 
-[data-theme="dark"] z-tabs [role="tab"][data-active] {
-  color: #e0e0e0;
+[data-theme="dark"] z-select [slot="trigger"],
+[data-theme="dark"] z-combobox input {
+  border-color: #3a3a4e;
+}
+
+[data-theme="dark"] z-select [slot="trigger"]:focus,
+[data-theme="dark"] z-combobox input:focus {
+  box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.3);
 }
 
 body {
@@ -122,18 +129,116 @@ body {
   background: var(--column-bg);
 }
 
-/* --- Filter Row --- */
+/* --- Tabs --- */
 
-/* --- Tabs spacing --- */
+z-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
 
 z-tabs [role="tab"] {
-  padding: 0.5rem 1.25rem;
-  font-size: 0.9rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--column-bg);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+z-tabs [role="tab"]:first-of-type {
+  border-radius: var(--z-border-radius, 0.5rem) 0 0 var(--z-border-radius, 0.5rem);
+}
+
+z-tabs [role="tab"]:nth-of-type(2) {
+  border-radius: 0 var(--z-border-radius, 0.5rem) var(--z-border-radius, 0.5rem) 0;
+}
+
+z-tabs [role="tab"][data-active] {
+  background: var(--text-primary);
+  color: var(--board-bg);
+}
+
+z-tabs [role="tab"]:hover:not([data-active]) {
+  background: var(--card-bg);
 }
 
 z-tabs [data-tab-panel] {
+  width: 100%;
   padding-top: 1.25rem;
 }
+
+/* --- Select trigger & Combobox input --- */
+
+z-select [slot="trigger"] {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--column-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+z-select [slot="trigger"]:hover {
+  border-color: var(--text-secondary);
+}
+
+z-select [slot="trigger"]:focus {
+  outline: none;
+  border-color: var(--dot-progress);
+  box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.15);
+}
+
+z-combobox input {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--column-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+z-combobox input:hover {
+  border-color: var(--text-secondary);
+}
+
+z-combobox input:focus {
+  outline: none;
+  border-color: var(--dot-progress);
+  box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.15);
+}
+
+/* --- Select & Combobox dropdown panels --- */
+
+z-select [slot="options"],
+z-combobox [slot="listbox"] {
+  background: var(--card-bg);
+  border: 1px solid var(--column-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.25rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+z-select [slot="options"] [data-value],
+z-combobox [slot="listbox"] [role="option"] {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+z-select [slot="options"] [data-value]:hover,
+z-combobox [slot="listbox"] [role="option"]:hover {
+  background: var(--column-bg);
+}
+
+/* --- Filter Row --- */
 
 /* --- Filter Row --- */
 
