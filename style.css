@@ -88,6 +88,14 @@ body {
 }
 
 /* Dropdown menu items */
+#settings-dropdown [slot="content"] {
+  background: var(--card-bg);
+  border: 1px solid var(--column-bg);
+  border-radius: var(--z-border-radius, 0.5rem);
+  padding: 0.25rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 #settings-dropdown [role="menuitem"] {
   display: block;
   width: 100%;
