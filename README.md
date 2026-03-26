@@ -1,6 +1,6 @@
 # Zephyr Boards
 
-**Watch an AI agent build and manage a task board in real time** — powered by [Zephyr Framework](https://github.com/daltoncarr/zephyr-framework).
+**Watch an AI agent build and manage a task board in real time** — powered by [Zephyr Framework](https://github.com/daltlc/zephyr-framework).
 
 <!-- TODO: Add live demo link once deployed -->
 <!-- [Live Demo](https://zephyr-agent-demo.vercel.app) -->
@@ -41,7 +41,7 @@ Browser                          Server                    Anthropic
 ## Try It Locally
 
 ```bash
-git clone https://github.com/daltoncarr/zephyr-agent-demo.git
+git clone https://github.com/daltlc/zephyr-agent-demo.git
 cd zephyr-agent-demo
 
 # Add your Anthropic API key
@@ -75,7 +75,7 @@ Set `ANTHROPIC_API_KEY` in your Vercel environment variables.
 
 ## Built With
 
-- [Zephyr Framework](https://github.com/daltoncarr/zephyr-framework) — the first UI framework built for AI agents
+- [Zephyr Framework](https://github.com/daltlc/zephyr-framework) — the first UI framework built for AI agents
 - Zero build step, zero bundler, zero runtime JS for interactions
 - `<z-agent>` chat widget with Anthropic Claude integration
 - Vercel serverless function for API key proxy
