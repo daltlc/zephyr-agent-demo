@@ -292,7 +292,6 @@ class ZBoard extends HTMLElement {
     // Match by title substring (case-insensitive)
     const q = query.toLowerCase();
     for (const task of this._tasks.values()) {
-      if (task.id === query) return task;
       if (task.title.toLowerCase().includes(q)) return task;
     }
     return null;

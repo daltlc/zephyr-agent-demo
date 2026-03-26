@@ -8,5 +8,14 @@
     "start": "npx serve ."
   },
   "keywords": ["zephyr", "ai-agent", "web-components", "mcp", "task-board"],
-  "license": "MIT"
+  "author": "Dalton Carr",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daltlc/zephyr-agent-demo.git"
+  },
+  "homepage": "https://zephyr-agent-demo.vercel.app",
+  "bugs": {
+    "url": "https://github.com/daltlc/zephyr-agent-demo/issues"
+  }
 }

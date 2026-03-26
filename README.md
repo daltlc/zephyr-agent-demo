@@ -4,7 +4,6 @@
 
 **[Live Demo](https://zephyr-agent-demo.vercel.app)**
 
-<!-- TODO: Add GIF/video of the agent creating tasks in real time -->
 
 ## How It Works
 

@@ -240,8 +240,6 @@ z-combobox [slot="listbox"] [role="option"]:hover {
 
 /* --- Filter Row --- */
 
-/* --- Filter Row --- */
-
 .filter-row {
   display: flex;
   gap: 0.75rem;
