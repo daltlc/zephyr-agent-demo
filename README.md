@@ -2,8 +2,7 @@
 
 **Watch an AI agent build and manage a task board in real time** — powered by [Zephyr Framework](https://github.com/daltlc/zephyr-framework).
 
-<!-- TODO: Add live demo link once deployed -->
-<!-- [Live Demo](https://zephyr-agent-demo.vercel.app) -->
+**[Live Demo](https://zephyr-agent-demo.vercel.app)**
 
 <!-- TODO: Add GIF/video of the agent creating tasks in real time -->
 
